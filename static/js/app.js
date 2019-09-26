@@ -6,7 +6,7 @@ function buildMetadata(sample) {
   sampleData.html("");
 
   d3.json(url).then(data => {
-    console.log(data);
+    // console.log(data);
     let row = sampleData.append("p");
     Object.entries(data).forEach(([key, value]) => {
     let entry = row.append("p")
@@ -18,16 +18,24 @@ function buildMetadata(sample) {
     // buildGauge(data.WFREQ);
 
 
-// function buildCharts(sample) {
+function buildCharts(sample) {
 
-//   // @TODO: Use `d3.json` to fetch the sample data for the plots
+  let url = `/samples/${sample}`;
+  let pieChart = d3.select("#pie");
 
-//     // @TODO: Build a Bubble Chart using the sample data
+  pieChart.html("")
 
-//     // @TODO: Build a Pie Chart
-//     // HINT: You will need to use slice() to grab the top 10 sample_values,
-//     // otu_ids, and labels (10 each).
-// }
+  d3.json(url).then(data => {
+    console.log(data.otu_ids.slice(0,10));
+  });
+  // @TODO: Use `d3.json` to fetch the sample data for the plots
+
+    // @TODO: Build a Bubble Chart using the sample data
+
+    // @TODO: Build a Pie Chart
+    // HINT: You will need to use slice() to grab the top 10 sample_values,
+    // otu_ids, and labels (10 each).
+};
 
 function init() {
   // Grab a reference to the dropdown select element
@@ -46,14 +54,14 @@ function init() {
     const firstSample = sampleNames[0];
     console.log(firstSample);
     console.log(sampleNames);
-    // buildCharts(firstSample);
-    // buildMetadata(firstSample);
+    buildCharts(firstSample);
+    buildMetadata(firstSample);
   });
 }
 
 function optionChanged(newSample) {
   // Fetch new data each time a new sample is selected
-  // buildCharts(newSample);
+  buildCharts(newSample);
   buildMetadata(newSample);
 }
 
