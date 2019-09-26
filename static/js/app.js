@@ -26,7 +26,19 @@ function buildCharts(sample) {
   pieChart.html("")
 
   d3.json(url).then(data => {
-    console.log(data.otu_ids.slice(0,10));
+    let otu = data.otu_ids.slice(0,10);
+    let samples = data.sample_values.slice(0,10);
+    let labs = data.otu_labels.slice(0,10);
+    console.log(otu);
+    console.log(samples);
+    console.log(labs);
+    let barData = [{
+      values: samples,
+      labels: otu,
+      text: labs,
+      type: "pie"
+    }];
+    Plotly.plot("pie",barData);
   });
   // @TODO: Use `d3.json` to fetch the sample data for the plots
 
@@ -52,9 +64,9 @@ function init() {
 
     // Use the first sample from the list to build the initial plots
     const firstSample = sampleNames[0];
-    console.log(firstSample);
-    console.log(sampleNames);
-    buildCharts(firstSample);
+    // console.log(firstSample);
+    // console.log(sampleNames);
+    // buildCharts(firstSample);
     buildMetadata(firstSample);
   });
 }
