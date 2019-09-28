@@ -29,16 +29,26 @@ function buildCharts(sample) {
     let otu_ids = data.otu_ids;
     let sample_values = data.sample_values;
     let otu_labels = data.otu_labels;
+
     console.log(otu_ids);
     console.log(sample_values);
     console.log(otu_labels);
+
     let barData = [{
       values: sample_values.slice(0,10),
       labels: otu_ids.slice(0,10),
       hovertext: otu_labels.slice(0,10),
       type: 'pie'
     }];
-    Plotly.plot('pie',barData);
+
+    let layout = {
+      title: `Bacteria Pie Chart`,
+      showlegend: true,
+      height: 500,
+      width: 700
+    };
+    
+    Plotly.restyle('pie', barData, layout);
 
 
     let trace1 = [{
@@ -52,7 +62,22 @@ function buildCharts(sample) {
       type: 'scatter',
       text: otu_labels
     }];
-    Plotly.newPlot('bubble', trace1);
+
+    let layout2 = {
+      title: `Bacteria Bubble Chart`,
+      yaxis: {
+        autorange: true
+      },
+      xaxis: {
+        autorange: true,
+        title: `OTU ID`
+      },
+      showlegend: true,
+      height: 500,
+      width: 900
+    };
+
+    Plotly.restyle('bubble', trace1, layout2);
   });
 };
 
@@ -73,7 +98,7 @@ function init() {
     const firstSample = sampleNames[0];
     // console.log(firstSample);
     // console.log(sampleNames);
-    // buildCharts(firstSample);
+    buildCharts(firstSample);
     buildMetadata(firstSample);
   });
 }
