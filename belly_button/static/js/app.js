@@ -48,7 +48,7 @@ function buildCharts(sample) {
       width: 700
     };
     
-    Plotly.restyle('pie', barData, layout);
+    Plotly.newPlot('pie', barData, layout);
 
 
     let trace1 = [{
@@ -77,7 +77,7 @@ function buildCharts(sample) {
       width: 900
     };
 
-    Plotly.restyle('bubble', trace1, layout2);
+    Plotly.newPlot('bubble', trace1, layout2);
   });
 };
 
